@@ -16,7 +16,7 @@ public class TextFile implements IDataAccessor{
         wordsList.clear();
         int j=0;
         while (sc.hasNextLine()) {
-            List<String> lineWords = Arrays.asList(sc.nextLine().trim().split("\\s+|(?=[^a-zA-Z])"));
+            List<String> lineWords = Arrays.asList(sc.nextLine().trim().split("\\s+|(?=[^A-zÀ-ú])"));
             for(int i=0; i != lineWords.size(); ++i, ++j){
                 wordsList.add(new Word(j, lineWords.get(i)));
             }
@@ -46,6 +46,9 @@ public class TextFile implements IDataAccessor{
     }
 
     public void updateWord(Main main, Word oldWord, String newWord){
+        if(newWord.matches(".*[^A-zÀ-ú]+.*|.*\\s+.*"))
+            return;
+
         for(int i=0; i != wordsList.size(); ++i) {
             if(wordsList.get(i).equals(oldWord))
             {
