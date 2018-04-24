@@ -11,9 +11,12 @@ public class Dictionary implements IDataAccessor{
     public void specificFiller(Scanner sc) {
         dictionaryValues.clear();
         while (sc.hasNextLine()) {
-            dictionaryValues.add(sc.nextLine().trim().toLowerCase());
-            java.util.Collections.sort(dictionaryValues); //Sort dictionary
+            String dictionaryWord = sc.nextLine().trim().toLowerCase();
+            if(dictionaryWord.matches("[A-zÀ-ú]+") && !dictionaryValues.contains(dictionaryWord)) {
+                dictionaryValues.add(dictionaryWord);
+            }
         }
+        java.util.Collections.sort(dictionaryValues); //Sort dictionary
     }
 
     public ObservableList<String> getDictionaryValues(){
